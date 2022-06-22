@@ -10,6 +10,7 @@ module.exports = {
     title: `ESSENTIALS`,
     description: `おいしい食材と食事を探求するサイト`,
     lang: `ja`,
+    siteUrl: `https://brilliant-twilight-3c71f3.netlify.app`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
