@@ -11,6 +11,8 @@ module.exports = {
     description: `おいしい食材と食事を探求するサイト`,
     lang: `ja`,
     siteUrl: `https://brilliant-twilight-3c71f3.netlify.app`,
+    locale: `ja_JP`,
+    fbappid: `XXXXXXXXXXXXXXXXXXX`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -23,5 +25,18 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `ESSENTIALS エッセンシャルズ`,
+        short_name: `ESSENTIALS`,
+        start_url: `/`,
+        background_color: `#ffffff`,
+        theme_color: `#477294`,
+        display: `standalone`,
+        icon: `src/images/icon.jpg`,
+      },
+    },
+    `gatsby-plugin-offline`,
   ],
 }

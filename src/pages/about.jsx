@@ -6,11 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import Seo from "../components/seo";
 
-export default function Home(props) {
-    console.log(props);
+export default function Home(props, location, data) {
     return (
         <Layout>
-            <Seo pagetitle="ESSENTIALSについて" pagedesc="食べ物についての情報を発信しているサイトです。" />
+            <Seo 
+            pagetitle="ESSENTIALSについて" 
+            pagedesc="食べ物についての情報を発信しているサイトです。" 
+            pagepath={props.location.pathname}
+            pageimg={props.data.about.childImageSharp.original.src}
+            pageimgw={props.data.about.childImageSharp.original.width}
+            pageimgh={props.data.about.childImageSharp.original.height}
+            />
             <div className="eyecatch">
                 <figure>
                     <Img fluid={props.data.about.childImageSharp.fluid} alt="ブルーベリー＆ヨーグルト" />
@@ -59,6 +65,11 @@ query {
     childImageSharp {
       fluid(maxWidth: 1600) {
         ...GatsbyImageSharpFluid_withWebp
+      }
+      original{
+        src
+        width
+        height
       }
     }
   }
