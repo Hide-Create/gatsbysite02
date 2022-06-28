@@ -1,4 +1,6 @@
-
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+})
 const path = require("path");
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
@@ -28,7 +30,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         return
     }
 
-    blogresult.data.allContentfulBlogPost.edges.forEach(({ node, next,previous })=>{
+    blogresult.data.allContentfulBlogPost.edges.forEach(({ node, next, previous }) => {
         createPage({
             path: `/blog/post/${node.slug}/`,
             component: path.resolve(`./src/templates/blogpost-template.jsx`),
