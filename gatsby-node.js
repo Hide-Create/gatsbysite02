@@ -2,8 +2,9 @@
 const path = require("path");
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
-    const { createPage } = actions;
-    const blogresult = await graphql(`
+  const { createPage } = actions;
+
+  const blogresult = await graphql(`
     query {
         allContentfulBlogPost(sort: {fields: publishDate, order: DESC}) {
           edges {
@@ -23,20 +24,38 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         }
       }
     `)
-    if (blogresult.errors) {
-        reporter.panicOnBuild(`GraphQLのクエリでエラーが発生しました`)
-        return
-    }
+  if (blogresult.errors) {
+    reporter.panicOnBuild(`GraphQLのクエリでエラーが発生しました`)
+    return
+  }
 
-    blogresult.data.allContentfulBlogPost.edges.forEach(({ node, next, previous }) => {
-        createPage({
-            path: `/blog/post/${node.slug}/`,
-            component: path.resolve(`./src/templates/blogpost-template.jsx`),
-            context: {
-                id: node.id,
-                next,
-                previous,
-            },
-        })
+  blogresult.data.allContentfulBlogPost.edges.forEach(({ node, next, previous }) => {
+    createPage({
+      path: `/blog/post/${node.slug}/`,
+      component: path.resolve(`./src/templates/blogpost-template.jsx`),
+      context: {
+        id: node.id,
+        next,
+        previous,
+      },
     })
+  })
+
+  const blogPostPerPage = 6;
+  const blogPosts = blogresult.data.allContentfulBlogPost.edges.length;
+  const blogPages = Math.ceil(blogPosts / blogPostPerPage);
+
+  Array.from({ length: blogPages }).forEach((_, i) => {
+    createPage({
+      path: i === 0 ? `/blog/` : `/blog/${i + 1}/`,
+      component: path.resolve("./src/templates/blog-template.jsx"),
+      context: {
+        skip: blogPostPerPage * i,
+        limit: blogPostPerPage,
+        currentPage: i + 1,
+        isFirst: i + 1 === 1,
+        isLast: i + 1 === blogPages,
+      },
+    })
+  })
 }

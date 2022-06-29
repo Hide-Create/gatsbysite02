@@ -58,6 +58,7 @@ svg {
 	padding: 0;
 	position: absolute;
 	width: 1px;
+	color: #0facde;
 }
 
 
@@ -516,7 +517,6 @@ svg {
 }
 
 .posts img {
-	height: 150px;
 	object-fit: cover;
 }
 .posts h3 {
@@ -527,10 +527,6 @@ svg {
 @media (min-width: 768px) {
 	.posts h3 {
 		font-size: 16px;
-	}
-
-	.posts img {
-		height: 200px;
 	}
 }
 
