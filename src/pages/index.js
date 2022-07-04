@@ -81,6 +81,7 @@ export default function Home(props) {
                     <GatsbyImage 
                     image={node.eyecatch.gatsbyImageData} 
                     alt={node.eyecatch.description} 
+                    style={{height : "100%"}}
                     />
                   </figure>
                   <h3>{node.title}</h3>
