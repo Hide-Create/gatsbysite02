@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql, Link } from "gatsby";
-import Img from "gatsby-image";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
@@ -11,7 +10,13 @@ export default function Home(props) {
       <Seo />
       <section className="hero">
         <figure>
-          <StaticImage src="../images/hero.jpg" alt="" style={{ height: "100%" }} layout="fullWidth" />
+          <StaticImage 
+          src="../images/hero.jpg" 
+          alt="" 
+          style={{ height: "100%" }} 
+          layout="fullWidth"
+          grayscale={true}
+           />
         </figure>
         <div className="catch">
           <h1>There is no love sincerer than<br /> the love of food.</h1>
@@ -73,7 +78,10 @@ export default function Home(props) {
               <article className="post" key={node.id}>
                 <Link to={`/blog/post/${node.slug}/`}>
                   <figure>
-                    <GatsbyImage image={node.eyecatch.gatsbyImageData} alt={node.eyecatch.description} style={{ height: "100%" }} />
+                    <GatsbyImage 
+                    image={node.eyecatch.gatsbyImageData} 
+                    alt={node.eyecatch.description} 
+                    />
                   </figure>
                   <h3>{node.title}</h3>
                 </Link>

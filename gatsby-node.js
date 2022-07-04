@@ -22,6 +22,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+        allContentfulCategory {
+          edges {
+            node {
+              categorySlug
+              id
+              category
+              blogpost{
+                title
+              }
+            }
+          }
+        }
       }
     `)
   if (blogresult.errors) {
@@ -58,4 +70,28 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
+
+  blogresult.data.allContentfulCategory.edges.forEach(({ node }) => {
+    const catPostsPerPage = 6;
+    const catPosts = node.blogposst.length;
+    const catPages = Math.ceil(catPosts / catPostsPerPage);
+
+    Array.from({ length: catPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/category/${node.categorySlug}/` : `/category/${node.categorySlug}/${i + 1}/`,
+        component: path.resolve(`./src/templates/category-template.jsx`),
+        context: {
+          categoryid: node.id,
+          categoryname: node.category,
+          categoryslug: node.categorySlug,
+          skip: catPostsPerPage,
+          limit: catPostsPerPage,
+          currentPage: i + 1,
+          isFirst: i + 1 === 1,
+          isLast: i + 1 === catPages,
+        },
+      })
+    })
+  })
+
 }
