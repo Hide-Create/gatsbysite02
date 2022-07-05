@@ -62,7 +62,7 @@ const Blogpost = (props, pageContext, location) => {
                             <ul>
                                 {props.data.contentfulBlogPost.category.map(cat => (
                                     <li className={cat.categorySlug} key={cat.id} >
-                                        <Link to={`/category/${cat.categorySlug}/`} >{cat.category}</Link>
+                                        <Link to={`/cat/${cat.categorySlug}/`} >{cat.category}</Link>
                                     </li>
                                 ))}
                             </ul>
